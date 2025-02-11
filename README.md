@@ -1,168 +1,151 @@
-![Saleor Platform](https://user-images.githubusercontent.com/249912/71523206-4e45f800-28c8-11ea-84ba-345a9bfc998a.png)
+# Mi Ecommerce
 
 <div align="center">
-  <h1>My Ecommerce</h1>
+  <h1>Mi Ecommerce</h1>
+  <p>Plataforma de comercio electrónico basada en Saleor y React Storefront.</p>
+  
+  [🏠 Sitio Web](https://mi-ecommerce.com/) • [📚 Documentación](https://docs.mi-ecommerce.com/) • [📰 Blog](https://blog.mi-ecommerce.com/) • [🐦 Twitter](https://twitter.com/miecommerce)
+  
+  [🔎 Explorar Código](https://github.com/mi-ecommerce/mi-ecommerce-platform)
 </div>
 
-<div align="center">
-  <p>Run all Saleor services from one repository.</p>
-</div>
+---
 
-<div align="center">
-  <a href="https://saleor.io/">🏠 Website</a>
-  <span> • </span>
-  <a href="https://docs.saleor.io/docs/3.x/">📚 Docs</a>
-  <span> • </span>
-  <a href="https://saleor.io/blog/">📰 Blog</a>
-  <span> • </span>
-  <a href="https://twitter.com/getsaleor">🐦 Twitter</a>
-</div>
+## 🚀 Acerca de Mi Ecommerce
 
-<div align="center">
-  <a href="https://githubbox.com/saleor/saleor-platform">🔎 Explore Code</a>
-</div>
+### ¿Qué es Mi Ecommerce?
+Mi Ecommerce es una plataforma moderna de comercio electrónico que combina el poder de Saleor con la flexibilidad de React Storefront, ofreciendo un entorno optimizado para tiendas en línea de alto rendimiento.
 
-## About
+### Características
+- **Saleor Core GraphQL API** - Backend de comercio electrónico rápido y escalable
+- **React Storefront** - Frontend optimizado para rendimiento en dispositivos móviles
+- **Panel de Administración** - Gestión intuitiva de productos, pedidos y clientes
+- **Mailpit** - Interfaz para pruebas de correo
+- **Jaeger** - Monitorización de rendimiento (APM)
+- **Bases de Datos & Caché** - PostgreSQL y Redis configurados para alto rendimiento
 
-### What is Saleor Platform?
+> 💡 **Nota:** Este repositorio está diseñado exclusivamente para desarrollo local y no debe usarse en producción. Para pruebas en vivo, visita nuestra demo.
 
-Saleor Platform is the easiest way to start local development with all the major Saleor services:
-- [Core GraphQL API](https://github.com/saleor/saleor)
-- [Dashboard](https://github.com/saleor/saleor-dashboard)
-- Mailpit (Test email interface)
-- Jaeger (APM)
-- The necessary databases, cache, etc.
+---
 
-*Keep in mind this repository is for local development only and is not meant to be deployed in any production environment! If you're not a developer and just want to try out Saleor you can check our [live demo](https://demo.saleor.io/).*
+## 🛠 Requisitos
+- **Docker**
+- **Node.js** (para ejecutar el frontend con React Storefront)
 
-## Requirements
-1. [Docker](https://docs.docker.com/install/)
+---
 
-## How to clone the repository?
+## 📦 Instalación
 
-To clone the repository, run the following command
-
-```
-git clone https://github.com/saleor/saleor-platform.git
+### 1️⃣ Clonar el repositorio
+```sh
+git clone https://github.com/mi-ecommerce/mi-ecommerce-platform.git
 ```
 
-## How to run it?
+### 2️⃣ Configurar Docker
+#### Windows/MacOS:
+- Agregar la carpeta `mi-ecommerce-platform` a las carpetas compartidas en Docker (Preferences → Resources → File sharing).
+- Asegurarse de asignar al menos **5 GB de RAM** en Docker (Preferences → Resources → Advanced).
 
-1. We are using shared folders to enable live code reloading. Without this, Docker Compose will not start:
-    - Windows/MacOS: Add the cloned `saleor-platform` directory to Docker shared directories (Preferences -> Resources -> File sharing).
-    - Windows/MacOS: Make sure that in Docker preferences you have dedicated at least 5 GB of memory (Preferences -> Resources -> Advanced).
-    - Linux: No action is required, sharing is already enabled and memory for the Docker engine is not limited.
+#### Linux:
+- No se requiere configuración adicional.
 
-2. Go to the cloned directory:
-```shell
-cd saleor-platform
-```
-
-3. Apply Django migrations:
-```shell
+### 3️⃣ Iniciar la plataforma
+```sh
+cd mi-ecommerce-platform
 docker compose run --rm api python3 manage.py migrate
-```
-
-4. Populate the database with example data and create the admin user:
-```shell
 docker compose run --rm api python3 manage.py populatedb --createsuperuser
-```
-*Note that `--createsuperuser` argument creates an admin account for `admin@example.com` with the password set to `admin`.*
-
-5. Run the application:
-```shell
 docker compose up
 ```
 
-## Where is the application running?
-- Saleor Core (API) - http://localhost:8000
-- Saleor Dashboard - http://localhost:9000
-- Jaeger UI (APM) - http://localhost:16686
-- Mailpit (Test email interface) - http://localhost:8025
+### 🛠 Superusuario creado:
+- **Usuario:** `admin@example.com`
+- **Contraseña:** `admin`
 
-# Troubleshooting
+---
 
-- [How to solve issues with lack of available space or build errors after an update](#how-to-solve-issues-with-lack-of-available-space-or-build-errors-after-an-update)
-- [How to run application parts?](#how-to-run-application-parts)
+## 🌍 Dónde se ejecuta la aplicación
 
-## How to solve issues with lack of available space or build errors after an update
+| Servicio | URL |
+|----------|--------------------------|
+| Backend (Saleor API) | [http://localhost:8000](http://localhost:8000) |
+| Panel de Administración | [http://localhost:9000](http://localhost:9000) |
+| React Storefront (Frontend) | [http://localhost:3000](http://localhost:3000) |
+| Jaeger (APM) | [http://localhost:16686](http://localhost:16686) |
+| Mailpit (Correo de prueba) | [http://localhost:8025](http://localhost:8025) |
 
-Most of the time both issues can be solved by cleaning up space taken by old containers. After that, we build again whole platform. 
+---
 
+## ❓ Troubleshooting
 
-1. Make sure docker stack is not running
-```shell
+### 🛑 Problemas de espacio o errores de compilación
+Si hay errores por falta de espacio o problemas de compilación tras una actualización, sigue estos pasos:
+
+#### 1️⃣ Detener los contenedores:
+```sh
 docker compose stop
 ```
 
-2. Remove existing volumes
-
-**Warning!** Proceeding will remove also your database container! If you need existing data, please remove only services that cause problems! https://docs.docker.com/compose/reference/rm/
-```shell
+#### 2️⃣ Eliminar volúmenes antiguos:
+⚠️ **Advertencia:** Esto eliminará la base de datos. Si deseas conservar los datos, borra solo los servicios problemáticos.
+```sh
 docker compose rm
 ```
 
-3. Build fresh containers 
-```shell
+#### 3️⃣ Reconstruir los contenedores:
+```sh
 docker compose build
 ```
 
-4. Now you can run a fresh environment using commands from `How to run it?` section. Done!
+#### 4️⃣ Volver a ejecutar la aplicación:
+```sh
+docker compose up
+```
 
-### Still no available space
-
-If you are getting issues with lack of available space, consider pruning your docker cache:
-
-**Warning!** This will remove:
-  - all stopped containers
-  - all networks not used by at least one container
-  - all dangling images
-  - all dangling build cache 
-  
-  More info: https://docs.docker.com/engine/reference/commandline/system_prune/
-  
-<details><summary>I've been warned</summary>
-<p>
-
-```shell
+### 🚀 Falta de espacio en Docker
+Si el problema persiste, limpia la caché de Docker:
+```sh
 docker system prune
 ```
+⚠️ **Esto eliminará:**
+- Contenedores detenidos
+- Redes no utilizadas
+- Imágenes huérfanas
+- Caché de compilación
 
-</p>
-</details>
-
-### Issues with migrations after changing the versions - resetting the database
-
-Please submit an issue ticket if you spot issues with database migrations during the version update. 
-
-When testing developer releases or making local changes, you might end up in a state where you would like to reset the database completely. Since its state is persisted in the mounted volume, you'll need to use a dedicated command.
-
-**Warning!** This command will remove all data already stored in the database.
-
-<details><summary>I've been warned</summary>
-<p>
-
-```shell
+### 🔄 Resetear la base de datos
+Si hay problemas con migraciones tras actualizar versiones:
+```sh
 docker compose down --volumes db
 ```
+⚠️ **Esto eliminará TODOS los datos de la base de datos.**
 
-</p>
-</details>
-   
-## How to run application parts?
-  - `docker compose up api worker` for backend services only
-  - `docker compose up` for backend and frontend services
+---
 
-## Feedback
+## 🎯 Cómo ejecutar solo partes de la aplicación
 
-If you have any questions or feedback, do not hesitate to contact us via [GitHub Discussions](https://github.com/saleor/saleor/discussions).
+### Backend y worker:
+```sh
+docker compose up api worker
+```
 
-## License
+### Frontend y backend juntos:
+```sh
+docker compose up
+```
 
-Disclaimer: Everything you see here is open and free to use as long as you comply with the [license](https://github.com/saleor/saleor-platform/blob/main/LICENSE). There are no hidden charges. We promise to do our best to fix bugs and improve the code.
+---
 
-Some situations do call for extra code; we can cover exotic use cases or build you a custom e-commerce appliance.
+## 📩 Feedback
+Si tienes preguntas o sugerencias, participa en nuestras **[Discusiones de GitHub](https://github.com/mi-ecommerce/mi-ecommerce-platform/discussions)**.
 
-#### Crafted with ❤️ by [Saleor Commerce](https://saleor.io/)
+---
 
-hello@saleor.io
+## 📜 Licencia
+Este proyecto es open source y se puede usar libremente bajo los términos de la **licencia MIT**.
+
+📩 **Para soporte personalizado o integraciones avanzadas, contáctanos en** contacto@mi-ecommerce.com
+
+---
+
+🚀 **Desarrollado con ❤️ por Mi Ecommerce** 🚀
+
